@@ -1,6 +1,9 @@
 ﻿namespace PhoneBook.Domain;
 
-public class DomainException
+public sealed class DomainException : Exception
 {
+    public DomainException(string message) : base(message)
+    {
 
+    }
 }
