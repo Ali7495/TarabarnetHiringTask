@@ -46,8 +46,6 @@ public class CreateContactCommandTest
         Guid id = await MediatR.Send(command);
 
         // Assert
-
-
         contactRepository.Verify(r => r.AddAsync(It.Is<Contact>(c => c.FirstName == "Ali" && c.LastName == "Fakhri"), It.IsAny<CancellationToken>()), Times.Once);
     }
 }

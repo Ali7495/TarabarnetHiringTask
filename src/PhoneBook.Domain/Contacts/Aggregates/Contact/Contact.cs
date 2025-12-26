@@ -43,6 +43,20 @@ public sealed class Contact : BaseEntity
         _tags.Add(tag);
     }
 
+    public void Update(string firstName, string lastName, PhoneNumber phoneNumber, IEnumerable<Tag> tags)
+    {
+        SetName(firstName, lastName);
+
+        PhoneNumber = phoneNumber ?? throw new DomainException("Phone number is required.");
+
+        _tags.Clear();
+
+        var list = tags?.ToList() ?? new List<Tag>();
+        if (list.Count == 0) throw new DomainException("At least one tag is required.");
+
+        foreach (var t in list) AddTag(t); // دوباره Duplicate-safe
+    }
+
     private void SetName(string firstName, string lastName)
     {
         if (string.IsNullOrWhiteSpace(firstName))
